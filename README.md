@@ -1,11 +1,22 @@
 # List of Requirements
 
-- Single Page Application
+## Front-end
+
+- **Home Page**
+
   - **About Me**
   - **Services**
   - **Testimonials**
   - **Booking**
   - **Contact**
+
+## Back-end
+
+- **APIs**
+  - **Accounts API** - For managing Accounts
+  - **ServiceTypes API** - For managing Service Types
+  - **Services API** - For managing Services
+  - **Bookings API** - For managing Bookings
 
 ---
 
@@ -21,9 +32,11 @@ About Me section of the Home Page will have the following Components:
 
 ---
 
-## Services Available
+## Services
 
-A List of services that require the following data structure per Service:
+Services are the offerings to patients. Each Service can have multiple Service Categories. Each Service Category gets its own page with a List of available Services for the category and Testimonials related to the Service Category.
+
+A Service requires the following data structure:
 
 ```ts
 type ServiceCategoryTypes =
@@ -45,6 +58,8 @@ interface ServiceTypes {
   categories?: ServiceCategoryTypes[] | 'uncategorized';
   /** Brief Description of the Service */
   description: string;
+  /** Whether Service is currently available or not. Allows turning off when desired. */
+  available: boolean;
 }
 ```
 
@@ -57,22 +72,22 @@ The Testimonials will showcase any patient testimonials. If patients want to hid
 The data structure looks like:
 
 ```ts
-interface TestimonialTypes {
+interface ITestimonial {
   /** ID of the Testimonial: Auto-generated */
   _id: string;
-  /** Name of the Patient */
+  /** Real Name of the Patient */
   patient_name: string;
   /** Patient's photo */
   patient_photo?: string;
   /** Whether this is a verified user having an account and who made a transaction via website */
   isVerified: boolean;
   /** Whether real identity is hidden */
-  hideRealIdentity: boolean;
+  hideIdentity: boolean;
   /** Display Name for representational purpose */
   display_name: string;
   /** Display Image for representational purpose */
   display_photo: string;
-  /** Service taken */
+  /** ID of the Service taken */
   service: string;
   /** The actual testimonial text */
   text: string;
@@ -115,3 +130,7 @@ interface ContactFormTypes {
 ```
 
 ---
+
+# References
+
+- **[Using SASS in Next.js](https://www.freecodecamp.org/news/how-to-use-sass-with-css-modules-in-next-js/)**

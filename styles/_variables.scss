@@ -1,0 +1,22 @@
+/** Global Variables */
+$color-primary: #8c3d35;
+$color-secondary: #bf8984;
+$color-link: #bf8984;
+$color-button: #4a5a5a;
+$color-button-hover: #585959;
+$color-text-primary: #0d0d0d;
+$color-text-secondary: #444444;
+$font-primary: Arial;
+$font-secondary: Helvetica;
+$text: (
+  'sm': 0.675rem,
+  'standard': 0.75rem,
+  'base': 0.875rem,
+  'm': 1rem,
+  'l': 1.25rem,
+  'xl': 1.5rem,
+  '2xl': 1.75rem,
+  '3xl': 2rem,
+);
+$header-height: 3rem;
+$header-margin: 0.75rem;

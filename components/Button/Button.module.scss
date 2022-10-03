@@ -1,0 +1,24 @@
+@import '@styles/mixins';
+@import '@styles/variables';
+
+// py-3 px-6 md:px-3 lg:px-6 text-sm font-bold text-[#7510F7] rounded-3xl border border-[#7510F7] hover:bg-[#7510F7] hover:text-[#fff]
+
+.button {
+  padding: 1.55rem 2rem;
+  font-size: map-get($text, 'sm');
+  font-weight: bold;
+  background-color: $color-secondary;
+  color: #f2f2f2;
+  font-size: map-get($text, 'm');
+  cursor: pointer;
+  z-index: 1000;
+  @include rounded-3xl;
+  @include shadow-2xl;
+}
+
+.button:hover {
+  transition: all 150ms ease-in;
+  -o-transition: all 150ms ease-in;
+  -moz-transition: all 150ms ease-in;
+  -webkit-transition: all 150ms ease-in;
+}

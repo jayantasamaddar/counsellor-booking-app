@@ -1,0 +1,61 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+@import '@styles/functions';
+
+.carousel {
+  @include flex-center();
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  :global .carousel_navigation {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    @include flex-center(row, space-between, center);
+
+    svg {
+      cursor: pointer;
+      fill: $color-text-secondary;
+      width: 4rem;
+      height: 4rem;
+      color: $color-primary;
+    }
+    svg:hover {
+      fill: $color-secondary;
+      transition: fill 0.2s ease-in-out;
+    }
+  }
+
+  :global .carousel_container {
+    @include flex-center() {
+      gap: 0.75rem;
+    }
+    :global .carousel_item {
+      position: relative;
+      @include flex-center();
+
+      /** Slide Transition **/
+      transition: opacity 500ms ease-in-out;
+    }
+  }
+}
+
+.carousel_primary_button {
+  position: absolute;
+}
+
+.carousel_primary_button:hover {
+  background-color: $color-primary;
+}
+
+.hero-slideshow {
+  @include mobile {
+    img {
+      min-height: calc(100vh - headerHeight());
+      object-fit: cover;
+    }
+  }
+}

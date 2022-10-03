@@ -1,0 +1,55 @@
+@import '@styles/mixins';
+@import '@styles/variables';
+
+.testimonial {
+  @include flex-center(column) {
+    position: relative;
+    border: 0.5px solid #eeeeee;
+    width: 300px;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+  img {
+    @include rounded-top;
+  }
+  h4 {
+    padding: 1rem 1rem 0;
+    margin: 0;
+  }
+  p {
+    padding: 1rem;
+  }
+
+  :global .testimonial_content {
+    @include flex-center(column, center, flex-start) {
+      position: relative;
+    }
+
+    :global .testimonial_quote {
+      @include flex-center() {
+        position: absolute;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        color: white;
+        background-color: $color-primary;
+        top: -1.5rem;
+        left: 1rem;
+        bottom: 0;
+        right: 0;
+      }
+    }
+
+    :global .testimonial_text {
+      margin-top: 1rem;
+    }
+
+    :global .testimonial_context {
+      :global .testimonial_service {
+        padding-top: 0.25rem;
+        font-style: italic;
+        color: $color-text-secondary;
+      }
+    }
+  }
+}

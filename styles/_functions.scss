@@ -1,0 +1,6 @@
+@import 'variables';
+
+@function headerHeight($height: $header-height, $margin: $header-margin) {
+  $result: $height + 2 * $header-margin;
+  @return $result;
+}

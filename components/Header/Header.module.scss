@@ -1,0 +1,9 @@
+@import '@styles/mixins';
+@import '@styles/variables';
+
+.header {
+  @include flex-center() {
+    height: $header-height;
+    margin: $header-margin;
+  }
+}

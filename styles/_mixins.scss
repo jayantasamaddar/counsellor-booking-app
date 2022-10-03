@@ -1,0 +1,68 @@
+/** Flexbox Centering */
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  @if $direction == row {
+    flex-direction: $direction;
+  } @else {
+    flex-direction: column;
+  }
+  justify-content: $justify;
+  align-items: $align;
+  @content;
+}
+
+@mixin rounded-top {
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+@mixin rounded-bottom {
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+@mixin rounded {
+  border-radius: 0.75rem;
+}
+
+@mixin rounded-xl {
+  border-radius: 1rem;
+}
+
+@mixin rounded-2xl {
+  border-radius: 2rem;
+}
+
+@mixin rounded-3xl {
+  border-radius: 3rem;
+}
+
+@mixin rounded-4xl {
+  border-radius: 4rem;
+}
+
+@mixin rounded-full {
+  border-radius: 50%;
+}
+
+/** Media Queries **/
+@mixin mobile() {
+  @media (min-width: 320px) {
+    @content;
+  }
+}
+
+@mixin tablets() {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @media (min-width: 968px) {
+    @content;
+  }
+}
+
+/** Box Shadow **/
+@mixin shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}

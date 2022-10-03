@@ -1,0 +1,19 @@
+@import '@styles/mixins';
+@import '@styles/variables';
+
+.footer {
+  margin-top: auto;
+  padding: 2.5rem;
+  width: 100%;
+  background-color: $color-secondary;
+  color: #f2f2f2;
+
+  div {
+    @include flex-center();
+  }
+
+  :global .footer_container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
