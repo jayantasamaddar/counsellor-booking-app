@@ -60,6 +60,8 @@ export interface ICarousel {
   animation?: AnimationStyle;
   /** Animation Duration in milliseconds */
   animationDuration?: number;
+  /** Priority to load the carousel images */
+  priority?: boolean;
   /** Class attribute of the Slideshow container */
   className?: string;
 }
@@ -95,6 +97,7 @@ export const Carousel = ({
   hideNavigation,
   animation = 'none',
   animationDuration = 0,
+  priority,
   className,
 }: ICarousel) => {
   /** Declare Variables, State, Refs */
@@ -173,6 +176,7 @@ export const Carousel = ({
                     alt={heading || `Slideshow-${position}`}
                     fill
                     sizes="100vw"
+                    priority={priority}
                   />
                   {primaryButton && (
                     <Button

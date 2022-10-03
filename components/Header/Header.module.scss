@@ -6,4 +6,8 @@
     height: $header-height;
     margin: $header-margin;
   }
+
+  :global .header_logo {
+    position: relative;
+  }
 }

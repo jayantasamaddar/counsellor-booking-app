@@ -6,7 +6,7 @@ import { testimonials } from '../data';
 const Home: NextPage = () => {
   return (
     <div className={'styles.container'}>
-      <Meta title="Pallavi Singh" desc="Counselling Psychologist" />
+      <Meta desc="Pallavi Singh - Counselling Psychologist" />
 
       <div className={'styles.main'}>
         {/***************************************************************************/}
