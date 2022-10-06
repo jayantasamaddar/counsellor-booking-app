@@ -1,13 +1,18 @@
 // import Link from 'next/link';
 import { Link } from '..';
-import { MouseEvent, ReactNode } from 'react';
+import {
+  MouseEvent,
+  ReactNode,
+  forwardRef,
+  ForwardedRef,
+  useRef,
+  useImperativeHandle,
+} from 'react';
 import styles from './Button.module.scss';
 
 type ButtonType = 'button' | 'submit' | 'reset';
 
-export interface IButton {
-  /** Visible Text of the Button or a React Component */
-  children: ReactNode;
+export interface DefaultButtonProps {
   /** Button Type: `button` | `submit` | 'reset'. Defaults to `button` */
   type?: ButtonType;
   /** Class attribute of the Button element */
@@ -22,26 +27,68 @@ export interface IButton {
   onClick?: (event: MouseEvent<HTMLButtonElement | HTMLInputElement>) => void;
 }
 
-export const Button = ({
-  children,
-  type = 'button',
-  className,
-  external,
-  link,
-  uppercase,
-  onClick,
-}: IButton) => {
-  return (
-    <Link href={link || '#'} passHref external={external}>
-      <button
-        type={type || 'button'}
-        className={`${styles.button} ${className || ''}${
-          uppercase ? ' uppercase' : ''
-        }`}
-        onClick={onClick}
-      >
+export interface IButton extends DefaultButtonProps {
+  /** Visible Text of the Button or a React Component */
+  children: ReactNode;
+  /** Whether Button is an Upload Button */
+  upload?: boolean;
+}
+
+const Button = forwardRef<HTMLButtonElement | HTMLInputElement, IButton>(
+  (
+    {
+      children,
+      type = 'button',
+      className,
+      external,
+      link,
+      uppercase,
+      upload,
+      onClick,
+    },
+    ref
+  ) => {
+    /************************************************************************************/
+    /** Declare variables, refs */
+    /************************************************************************************/
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    useImperativeHandle(ref, () =>
+      upload
+        ? (inputRef.current as HTMLInputElement)
+        : (buttonRef.current as HTMLButtonElement)
+    );
+    /************************************************************************************/
+    /** Parse Props */
+    /************************************************************************************/
+
+    const buttonProps: DefaultButtonProps = {
+      type: type || 'button',
+      className: `${styles.button} ${className || ''}${
+        uppercase ? ' uppercase' : ''
+      }`,
+      onClick: onClick,
+    };
+
+    /************************************************************************************/
+    /** Render Button */
+    /************************************************************************************/
+
+    return link ? (
+      <Link href={link || '#'} passHref external={external}>
+        <button {...buttonProps} ref={buttonRef}>
+          {children}
+        </button>
+      </Link>
+    ) : (
+      <button {...buttonProps} ref={buttonRef}>
         {children}
       </button>
-    </Link>
-  );
-};
+    );
+  }
+);
+
+Button.displayName = 'Button';
+export { Button };

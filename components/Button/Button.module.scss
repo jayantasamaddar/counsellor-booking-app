@@ -1,8 +1,6 @@
 @import '@styles/mixins';
 @import '@styles/variables';
 
-// py-3 px-6 md:px-3 lg:px-6 text-sm font-bold text-[#7510F7] rounded-3xl border border-[#7510F7] hover:bg-[#7510F7] hover:text-[#fff]
-
 .button {
   padding: 1.55rem 2rem;
   font-size: map-get($text, 'sm');

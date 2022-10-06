@@ -1,0 +1,75 @@
+@import '@styles/mixins';
+@import '@styles/variables';
+
+.contact_form_container {
+  @include flex-center();
+  padding: 2.5rem;
+  width: 100%;
+
+  form {
+    @include flex-center(column) {
+      gap: 2rem;
+      width: 50%;
+    }
+
+    label {
+      color: $color-text-secondary;
+    }
+
+    :global .contact_form_group {
+      @include flex-center() {
+        flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        gap: 2rem;
+        width: 100%;
+      }
+
+      :global .contact_form_name,
+      .contact_form_email {
+        @include flex-center(column, center, flex-start) {
+          gap: 0.25rem;
+          flex-grow: 1;
+        }
+      }
+
+      input[type='text'],
+      input[type='email'] {
+        border-radius: 0.125rem;
+        border-width: 1px;
+        border-color: rgb(203 213 225 / 1);
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      input[type='text']:focus,
+      input[type='email']:focus {
+        outline-color: rgb(203 213 225 / 1);
+      }
+    }
+
+    :global .contact_form_message {
+      width: 100%;
+      @include flex-center(column, center, flex-start) {
+        gap: 0.25rem;
+        place-self: flex-start;
+      }
+      textarea {
+        width: 100%;
+        border-radius: 0.125rem;
+        border-width: 1px;
+        border-color: rgb(203 213 225 / 1);
+        padding: 0.5rem;
+        height: 10rem;
+      }
+      textarea:focus {
+        outline-color: rgb(203 213 225 / 1);
+      }
+    }
+
+    :global .contact_form_submit {
+      button[type='submit']:hover {
+        background-color: $color-primary;
+      }
+    }
+  }
+}

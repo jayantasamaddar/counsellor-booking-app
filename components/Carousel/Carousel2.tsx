@@ -8,31 +8,24 @@ import { AiOutlineRight } from '@react-icons/all-files/ai/AiOutlineRight';
 import { Button, IButton } from '..';
 import type { ICarouselItem, ICarousel } from '../../types';
 
-interface ICarouselItemProps extends ICarouselItem {
-  active?: boolean;
-}
-
 /** Carousel Component */
-export const Carousel = ({
+export const Carousel2 = ({
   items,
   visibleItems = 1,
   fullWidth = false,
   navigation,
   hideNavigation,
-  animation,
-  animationDuration,
+  animation = 'none',
+  animationDuration = 0,
   priority,
   className,
 }: ICarousel) => {
   /** Declare Variables, State, Refs */
-  const [slides, setSlides] = useState<ICarouselItemProps[]>(items);
+  const [visibleSlides, setVisibleSlides] = useState<ICarouselItem[]>([]);
 
   /** Load Initial Slides */
   useEffect(() => {
-    setSlides(prev => [
-      ...prev.slice(0, visibleItems).map(item => ({ ...item, active: true })),
-      ...prev.slice(visibleItems),
-    ]);
+    setVisibleSlides(items.slice(0, visibleItems));
   }, [items, visibleItems]);
 
   /*************************************************************************/
@@ -41,33 +34,22 @@ export const Carousel = ({
 
   /** Right Arrow Click - Next Item */
   const nextItem = useCallback(() => {
-    const visibleSlides = slides.filter(slide => slide?.active);
-
     if (visibleSlides.length === items.length) return;
 
     const lastVisiblePos = visibleSlides[visibleSlides.length - 1].position;
     const newItemPos =
-      slides[slides.length - 1].position > lastVisiblePos
+      items[items.length - 1].position > lastVisiblePos
         ? lastVisiblePos + 1
-        : slides[0].position;
+        : items[0].position;
 
-    console.log({ lastVisiblePos, newItemPos });
+    const newItem = items.find(e => e.position === newItemPos) as ICarouselItem;
 
-    setSlides(prev =>
-      prev.map(slide => {
-        if (slide.position === newItemPos) {
-          return { ...slide, active: true };
-        } else if (slide.position === lastVisiblePos) {
-          return { ...slide, active: false };
-        } else return slide;
-      })
-    );
-  }, [items, slides]);
+    // Set New Slides
+    setVisibleSlides(prev => [...prev.filter((e, i) => i > 0), newItem]);
+  }, [items, visibleSlides]);
 
   /** Left Arrow Click - Previous Item */
   const prevItem = useCallback(() => {
-    const visibleSlides = slides.filter(slide => slide?.active);
-
     if (visibleSlides.length === items.length) return;
 
     const firstVisiblePos = visibleSlides[0].position;
@@ -76,16 +58,14 @@ export const Carousel = ({
         ? firstVisiblePos - 1
         : items[items.length - 1].position;
 
-    setSlides(prev =>
-      prev.map(slide => {
-        if (slide.position === newItemPos) {
-          return { ...slide, active: true };
-        } else if (slide.position === firstVisiblePos) {
-          return { ...slide, active: false };
-        } else return slide;
-      })
-    );
-  }, [items, slides]);
+    const newItem = items.find(e => e.position === newItemPos) as ICarouselItem;
+
+    // Set New Slides
+    setVisibleSlides(prev => [
+      newItem,
+      ...prev.filter((e, i) => i < prev.length - 1),
+    ]);
+  }, [items, visibleSlides]);
 
   /*************************************************************************/
   /** Render Carousel */
@@ -100,15 +80,12 @@ export const Carousel = ({
   return (
     <div className={classes}>
       <div className="carousel_container">
-        {slides.map(
-          ({ position, component, active, primaryButton, heading }) => (
+        {visibleSlides.map(
+          ({ position, component, primaryButton, heading }) => (
             <div
-              className={`carousel_item ${
-                animation === 'fade' ? 'fade_in' : animation || ''
-              }`}
+              className="carousel_item"
               key={position}
               data-position={position}
-              data-active={active ? 'active' : 'inactive'}
             >
               {isValidElement(component) ? (
                 <>{component}</>

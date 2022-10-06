@@ -66,3 +66,16 @@
 @mixin shadow-2xl {
   box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
+
+/** Animation **/
+@mixin fadeIn(
+  $duration: 400ms,
+  $timing-function: ease-in-out,
+  $direction: forwards
+) {
+  animation: $duration $timing-function $direction fadeIn;
+  -moz-animation: $duration $timing-function $direction fadeIn;
+  -webkit-animation: $duration $timing-function $direction fadeIn;
+  -o-animation: $duration $timing-function $direction fadeIn;
+  opacity: 0;
+}

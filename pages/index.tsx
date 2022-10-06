@@ -1,7 +1,14 @@
 import type { NextPage } from 'next';
-import { Meta, Avatar, Carousel, Testimonial } from '../components';
+import {
+  Meta,
+  Avatar,
+  Carousel,
+  Carousel2,
+  Testimonial,
+  ContactForm,
+} from '../components';
 import styles from '../styles/Home.module.scss';
-import { testimonials } from '../data';
+import { slideshow, testimonials } from '../data';
 
 const Home: NextPage = () => {
   return (
@@ -12,7 +19,11 @@ const Home: NextPage = () => {
         {/***************************************************************************/}
         {/* SLIDESHOW / HERO IMAGE */}
         {/***************************************************************************/}
-        <Carousel className="hero-slideshow" />
+        <Carousel
+          items={slideshow}
+          className="hero-slideshow"
+          animation="fade"
+        />
 
         {/***************************************************************************/}
         {/* ABOUT */}
@@ -60,12 +71,13 @@ const Home: NextPage = () => {
         <hr />
 
         {/***************************************************************************/}
-        {/* CONTACT */}
+        {/* CONTACT US */}
         {/***************************************************************************/}
         <section className="contact">
           <h2 id="contact-us" className="text-center">
             Contact Us
           </h2>
+          <ContactForm />
         </section>
 
         <hr />

@@ -11,3 +11,4 @@ export * from './Header';
 export * from './Footer';
 export * from './Testimonial';
 export * from './Error';
+export * from './Form';

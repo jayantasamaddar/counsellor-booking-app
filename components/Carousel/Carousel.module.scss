@@ -35,16 +35,22 @@
     }
     :global .carousel_item {
       position: relative;
+    }
+    :global .fade_in {
+      @include fadeIn();
+    }
+    :global .carousel_item[data-active='inactive'] {
+      display: none;
+    }
+    :global .carousel_item[data-active='active'] {
       @include flex-center();
-
-      /** Slide Transition **/
-      transition: opacity 500ms ease-in-out;
     }
   }
 }
 
 .carousel_primary_button {
   position: absolute;
+  z-index: 20;
 }
 
 .carousel_primary_button:hover {

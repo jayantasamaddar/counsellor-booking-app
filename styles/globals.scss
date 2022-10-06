@@ -67,6 +67,14 @@ aside {
   padding: 0;
 }
 
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='submit'] {
+  border-width: 0;
+  border-style: solid;
+}
+
 button {
   border: 0;
   outline: 0;
@@ -120,5 +128,24 @@ hr {
   body {
     color: white;
     background: black;
+  }
+}
+
+/** Animation Keyframes **/
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
   }
 }
