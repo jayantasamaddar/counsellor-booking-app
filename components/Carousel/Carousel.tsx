@@ -33,59 +33,73 @@ export const Carousel = ({
       ...prev.slice(0, visibleItems).map(item => ({ ...item, active: true })),
       ...prev.slice(visibleItems),
     ]);
-  }, [items, visibleItems]);
+  }, [visibleItems]);
 
   /*************************************************************************/
   /** Event Handlers */
   /*************************************************************************/
 
+  /**********************************/
   /** Right Arrow Click - Next Item */
+  /**********************************/
   const nextItem = useCallback(() => {
-    const visibleSlides = slides.filter(slide => slide?.active);
+    const activeSlides = slides.filter(slide => slide?.active);
 
-    if (visibleSlides.length === items.length) return;
+    if (activeSlides.length === slides.length) return;
 
-    const lastVisiblePos = visibleSlides[visibleSlides.length - 1].position;
+    const lastActivePos = activeSlides[activeSlides.length - 1].position;
     const newItemPos =
-      slides[slides.length - 1].position > lastVisiblePos
-        ? lastVisiblePos + 1
-        : slides[0].position;
+      slides[slides.length - 1].position > lastActivePos
+        ? lastActivePos + 1
+        : (slides.find(slide => !slide?.active) as ICarouselItemProps).position;
 
-    console.log({ lastVisiblePos, newItemPos });
+    const newItem = slides.find(
+      e => e.position === newItemPos
+    ) as ICarouselItemProps;
 
-    setSlides(prev =>
-      prev.map(slide => {
-        if (slide.position === newItemPos) {
-          return { ...slide, active: true };
-        } else if (slide.position === lastVisiblePos) {
-          return { ...slide, active: false };
-        } else return slide;
-      })
-    );
-  }, [items, slides]);
+    setSlides(prev => [
+      { ...newItem, active: true },
+      ...prev
+        .filter(s => s.position !== newItemPos)
+        .map(slide => {
+          if (slide.position === lastActivePos) {
+            return { ...slide, active: false };
+          } else return slide;
+        }),
+    ]);
+  }, [slides]);
 
+  /*************************************/
   /** Left Arrow Click - Previous Item */
+  /*************************************/
   const prevItem = useCallback(() => {
-    const visibleSlides = slides.filter(slide => slide?.active);
+    const activeSlides = slides.filter(slide => slide?.active);
 
-    if (visibleSlides.length === items.length) return;
+    if (activeSlides.length === slides.length) return;
 
-    const firstVisiblePos = visibleSlides[0].position;
+    const inactiveSlides = slides.filter(slide => !slide?.active);
+
+    const firstActivePos = activeSlides[0].position;
     const newItemPos =
-      items[0].position < firstVisiblePos
-        ? firstVisiblePos - 1
-        : items[items.length - 1].position;
+      slides[0].position < firstActivePos
+        ? firstActivePos - 1
+        : inactiveSlides[inactiveSlides.length - 1].position;
 
-    setSlides(prev =>
-      prev.map(slide => {
-        if (slide.position === newItemPos) {
-          return { ...slide, active: true };
-        } else if (slide.position === firstVisiblePos) {
-          return { ...slide, active: false };
-        } else return slide;
-      })
-    );
-  }, [items, slides]);
+    const newItem = slides.find(
+      e => e.position === newItemPos
+    ) as ICarouselItemProps;
+
+    setSlides(prev => [
+      ...prev
+        .filter(s => s.position !== newItemPos)
+        .map(slide => {
+          if (slide.position === firstActivePos) {
+            return { ...slide, active: false };
+          } else return slide;
+        }),
+      { ...newItem, active: true },
+    ]);
+  }, [slides]);
 
   /*************************************************************************/
   /** Render Carousel */
@@ -137,14 +151,20 @@ export const Carousel = ({
         )}
       </div>
       {!hideNavigation && (
-        <div className="carousel_navigation">
-          <div className="carousel_navigation_left" onClick={prevItem}>
+        <>
+          <div
+            className={`${styles.carousel_navigation} ${styles.left}`}
+            onClick={prevItem}
+          >
             {navigation?.buttonLeft || <AiOutlineLeft />}
           </div>
-          <div className="carousel_navigation_right" onClick={nextItem}>
+          <div
+            className={`${styles.carousel_navigation} ${styles.right}`}
+            onClick={nextItem}
+          >
             {navigation?.buttonRight || <AiOutlineRight />}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

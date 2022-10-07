@@ -3,7 +3,6 @@ import {
   Meta,
   Avatar,
   Carousel,
-  Carousel2,
   Testimonial,
   ContactForm,
 } from '../components';
