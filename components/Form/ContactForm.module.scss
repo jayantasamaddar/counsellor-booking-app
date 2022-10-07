@@ -9,6 +9,16 @@
   form {
     @include flex-center(column) {
       gap: 2rem;
+    }
+    @include mobile() {
+      width: 80%;
+    }
+
+    @include tablets() {
+      width: 65%;
+    }
+
+    @include desktop() {
       width: 50%;
     }
 
