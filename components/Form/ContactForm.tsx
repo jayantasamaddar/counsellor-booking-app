@@ -19,7 +19,13 @@ export const ContactForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<IContactForm>();
+  } = useForm<IContactForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
+  });
 
   const notify = (type: INotifyType, message: string) => {
     return toast[type](message, {
